@@ -19,6 +19,7 @@
   <a href="#how-it-learns">How it learns</a> ·
   <a href="#is-this-just-another-one-of-those-agents">Another agent?</a> ·
   <a href="https://emplio.app">Emplio Cloud</a> ·
+  <a href="https://discord.gg/vjAr5ARex">Discord</a> ·
   <a href="LICENSE">AGPL-3.0</a>
 </p>
 
@@ -172,6 +173,10 @@ Emplio runs commands and opens websites for you, so treat it like a member of st
 - Each person's computer and browsers run in their own containers and network.
 - Only the small `runner` service controls Docker, and only for Emplio's own two images. Don't give that access to anything else.
 - Never put this on the internet without HTTPS.
+
+## Community
+
+Questions, ideas, or want to show what Emplio does for your business? Join us on [Discord](https://discord.gg/vjAr5ARex).
 
 ## Contributing
 

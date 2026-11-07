@@ -14,6 +14,7 @@
 
 <p align="center">
   <a href="#install">Install</a> ·
+  <a href="https://docs.emplio.app">Docs</a> ·
   <a href="#the-vision">Vision</a> ·
   <a href="#what-it-does">What it does</a> ·
   <a href="#how-it-learns">How it learns</a> ·
@@ -112,6 +113,8 @@ It asks for an [OpenRouter](https://openrouter.ai/keys) key for the AI models, y
 You need [Docker](https://docs.docker.com/get-docker/). On a Linux server the installer can add it for you. On a Mac or Windows, install Docker Desktop first. Plan for at least 4 GB of memory, and 2 GB more for each person working at the same time.
 
 Run the same command again to update. Your settings and data stay.
+
+The full guide, from setup to every setting, is at [docs.emplio.app](https://docs.emplio.app).
 
 <details>
 <summary><b>Adding your team</b></summary>

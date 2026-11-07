@@ -38,6 +38,14 @@ test("a made file that can't be picked up doesn't throw, stays in out/, and does
   expect(removed).toEqual([]);
 });
 
+test("a computer that didn't answer has no made files, rather than its timeout message read as one", async () => {
+  const tried: string[] = [];
+  const box = { run: async () => ({ exitCode: 124, result: "Command timed out after 60s" }), read: async (path: string) => void tried.push(path) };
+  const who = { workspaceId: "w", conversationId: "c", role: "owner", user: { id: "u", name: "A", email: "a@example.com" } };
+  expect(await collectOut(box as never, who as never, "/work/tmp/.started-x", false)).toEqual({ saved: [], failed: [] });
+  expect(tried).toEqual([]);
+});
+
 test("an emplio request that throws keeps the command's output and the requests after it", async () => {
   const who = { workspaceId: "w", conversationId: "c", role: "owner", user: { id: "u", name: "A", email: "a@example.com" } };
   // not a real business id, so the export is refused

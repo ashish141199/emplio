@@ -1013,7 +1013,9 @@ export const findOut = (started: string, others: boolean) =>
 
 // A file that can't be picked up stays in out/ for a later pickup, and doesn't hold up the others.
 export async function collectOut(box: Box, s: Session, started: string, others: boolean) {
-  const list = (await exec(box, `${findOut(started, others)}; rm -f ${started}`)).result?.split("\n").filter(Boolean) ?? [];
+  const listed = await exec(box, `${findOut(started, others)}; rm -f ${started}`);
+  // a computer that didn't answer gave "Command timed out after 60s", not a list of files
+  const list = listed.exitCode === 124 ? [] : (listed.result?.split("\n").filter(Boolean) ?? []);
   const saved: Saved[] = [];
   const failed: string[] = [];
   for (const path of list) {
@@ -1691,6 +1693,17 @@ async function runInBox(s: Session, command: string, background: boolean, signal
   const started = `${WORK}/tmp/.started-${key}`;
   if (!result) {
     const done = await exec(box, `touch ${started} 2>/dev/null\n${command}${requestsTrailer(key)}`, { ...ran.env, EZ_KEY: key }, s.settings.commandSeconds, WORK, signal).finally(() => commandEnded(boxKey(s)));
+    // Too much at once (two npm installs on 1 GB, say) can freeze a computer: then nothing answers, not even `true`.
+    // Swapped now, not on the next reply, so this reply's next command gets a fresh one instead of failing too.
+    if (done.exitCode === 124 && !signal?.aborted && (await exec(box, "true", undefined, ANSWER_S)).exitCode === 124) {
+      console.warn(`box ${box.id} froze after a command; the next one starts a fresh computer`);
+      if (live.get(boxKey(s)) === box) live.delete(boxKey(s));
+      await box.kill().catch(() => {});
+      return {
+        exitCode: 124,
+        output: `${done.result}\n\nThe computer froze (most likely out of memory: too much running at once) and has been replaced by a fresh one for your next command. Company files are safe as of the last save; anything only in /work/tmp or not yet saved is gone. Run heavy commands (installs, builds) one at a time.`,
+      };
+    }
     const emplio = await runEz(box, s, withRequests(done.result ?? "", key), key, job);
     result = { exitCode: done.exitCode, output:[await clip(box, s, emplio.output), emplio.skill].filter(Boolean).join("\n"), jobCalls: emplio.jobCalls, key };
     if (emplio.viewed) result.viewed = emplio.viewed;

@@ -14,8 +14,10 @@
 
 <p align="center">
   <a href="#install">Install</a> ·
+  <a href="#the-vision">Vision</a> ·
   <a href="#what-it-does">What it does</a> ·
   <a href="#how-it-learns">How it learns</a> ·
+  <a href="#is-this-just-another-one-of-those-agents">Another agent?</a> ·
   <a href="https://emplio.app">Emplio Cloud</a> ·
   <a href="LICENSE">AGPL-3.0</a>
 </p>
@@ -31,6 +33,12 @@
 <p align="center">
   <img src="docs/images/demo.gif" alt="Emplio answering wholesale enquiries, making a quote, and learning a new credit rule">
 </p>
+
+## The vision
+
+Most AI agents are built for one person. Emplio is built for the whole company.
+
+Every business, from a freelancer to an enterprise, should have an employee who knows the whole company: what it sells, who does what, and where it's trying to go. Emplio works alongside every person on the team, takes the repetitive work off everyone's plate so people can spend their time on growth, and keeps pushing the business toward its goals around the clock. It gets better every day, and everything it learns belongs to the business.
 
 ## What it does
 
@@ -76,6 +84,21 @@ Emplio gets better at your business the longer it works there.
     <td align="center"><b>Team</b>: your people and Emplio's agents</td>
   </tr>
 </table>
+
+## Is this just another one of those agents?
+
+Fair question. Plenty of AI agents have a computer now, run all day and "learn". So why not just tell one of them to run your business?
+
+Because a business isn't one person, and no prompt gives an assistant a company to work in:
+
+- **One memory for the whole team.** A rule your sales lead teaches it applies when your accountant asks too. A personal agent only remembers what its one person told it.
+- **It sees the whole company.** In the background it reads across everyone's chats, spots promises nobody turned into a task, and chases what's late.
+- **It knows where you're going.** The owner's goals live in a file Emplio works from. On its own schedule it checks in on them and notes what moved.
+- **Roles, not just logins.** Owners, admins and staff see different things, and each person gets their own private computer and browser, so nobody's sign-ins end up in someone else's hands.
+- **Real records, not chat history.** Customers, orders and stock live in a database. Tasks have an owner and a due date.
+- **You own it.** It's open source, runs on your server or ours, works with any model through OpenRouter, and its memory is plain notes you can read and change. Nothing hidden, nothing locked in.
+
+Other agents make a great assistant for you. Emplio is staff for your company.
 
 ## Install
 

@@ -23,13 +23,7 @@
   <a href="LICENSE">AGPL-3.0</a>
 </p>
 
-<!-- Launch video. Once this repo is public, drag docs/launch.mp4 into this README on github.com
-     to get an inline player, and swap this block for the link GitHub gives. -->
-<p align="center">
-  <a href="docs/launch.mp4">
-    <img src="docs/images/launch-poster.jpg" alt="Watch the Emplio launch video (46 seconds)" width="800">
-  </a>
-</p>
+https://github.com/user-attachments/assets/fa225020-2aa2-4892-8895-dcc1fe1760b1
 
 <p align="center">
   <img src="docs/images/demo.gif" alt="Emplio answering wholesale enquiries, making a quote, and learning a new credit rule">

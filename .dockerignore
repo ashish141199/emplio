@@ -1,0 +1,8 @@
+**/node_modules
+**/.next
+**/._*
+.git
+.env
+.setup
+setup.log
+cloud

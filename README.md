@@ -1,0 +1,161 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/logo-dark.png">
+    <img src="docs/images/logo-light.png" alt="Emplio" height="64">
+  </picture>
+</p>
+
+<h3 align="center">The open-source, self-learning AI employee.</h3>
+
+<p align="center">
+  Emplio works alongside your team with its own computer and browser.<br>
+  Tell it once, or show it once, and it remembers how your business does things.
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#what-it-does">What it does</a> ·
+  <a href="#how-it-learns">How it learns</a> ·
+  <a href="https://emplio.app">Emplio Cloud</a> ·
+  <a href="LICENSE">AGPL-3.0</a>
+</p>
+
+<!-- Launch video. Once this repo is public, drag docs/launch.mp4 into this README on github.com
+     to get an inline player, and swap this block for the link GitHub gives. -->
+<p align="center">
+  <a href="docs/launch.mp4">
+    <img src="docs/images/launch-poster.jpg" alt="Watch the Emplio launch video (46 seconds)" width="800">
+  </a>
+</p>
+
+<p align="center">
+  <img src="docs/images/demo.gif" alt="Emplio answering wholesale enquiries, making a quote, and learning a new credit rule">
+</p>
+
+## What it does
+
+Emplio is one colleague your whole team can talk to, on the web or on Telegram. Ask it for something the way you'd ask a person, and it does the work, not just the writing.
+
+- **Has its own computer and browser.** It runs commands, opens websites, fills in forms and makes real files: quotes, invoices, spreadsheets, decks.
+- **Works in your apps.** Gmail, Calendar, Drive, Sheets, Zoho Books and more, plus any MCP server you add.
+- **Keeps your records.** A built-in database for leads, orders and stock that it reads and updates as it works.
+- **Runs the to-do list.** Give tasks to Emplio or to people. It does its own, chases everyone else's and tells you what needs you.
+- **Works without being asked.** A morning brief, scheduled jobs, and long work handed off to its own agents in the background.
+- **Fits a real team.** Owners, admins and staff, who reports to whom, and restricted files staff can't see. Each person gets their own computer and browser, kept apart from everyone else's.
+
+<p align="center">
+  <img src="docs/images/work-dark.png" alt="The Work page: tasks for Emplio and for people, with what's waiting and what's done">
+</p>
+
+## How it works
+
+<p align="center">
+  <img src="docs/images/how-it-works-dark.png" alt="Your team talks to Emplio on the web, Telegram or by voice; Emplio works on its own computer, its own browser and your apps, and keeps memory, records and the work list, learning as it goes">
+</p>
+
+## How it learns
+
+Emplio gets better at your business the longer it works there.
+
+- **Tell it once.** "Give new cafés 30 days' credit" becomes a rule in company memory, and it applies it from then on.
+- **Show it once.** Record yourself doing something in the browser and Emplio turns it into a skill it can repeat.
+- **It hires its own help.** When a kind of work keeps coming back, Emplio sets up an agent for it, like an Invoice Chaser, and each agent keeps lessons from its past jobs.
+- **You can read all of it.** Memory is plain notes, kept in git with full history. Change anything, any time.
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/images/memory-dark.png" alt="Company memory: the notes Emplio keeps about how the business works">
+    </td>
+    <td width="50%">
+      <img src="docs/images/team-dark.png" alt="The team: people with their roles, and the agents Emplio set up">
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Memory</b>: plain notes, kept in git</td>
+    <td align="center"><b>Team</b>: your people and Emplio's agents</td>
+  </tr>
+</table>
+
+## Install
+
+Run this on your computer or your server:
+
+```bash
+curl -fsSL https://emplio.app/install.sh | bash
+```
+
+It asks for an [OpenRouter](https://openrouter.ai/keys) key for the AI models, your email, and your web address if you have one, then gives you a link that signs you in as the owner.
+
+- **On a computer:** leave the web address empty. Emplio opens at http://localhost:3000.
+- **On a server:** point your web address at the server and open ports 80 and 443 first. HTTPS is set up for you.
+
+You need [Docker](https://docs.docker.com/get-docker/). On a Linux server the installer can add it for you. On a Mac or Windows, install Docker Desktop first. Plan for at least 4 GB of memory, and 2 GB more for each person working at the same time.
+
+Run the same command again to update. Your settings and data stay.
+
+<details>
+<summary><b>Adding your team</b></summary>
+
+Add people from the Team page. With no email service set up, their sign-in codes are written to the log:
+
+```bash
+cd ~/emplio && docker compose logs app | grep "sign-in code"
+```
+
+Add `RESEND_API_KEY` to `~/emplio/.env` and run `docker compose up -d` so people get their codes by email.
+
+</details>
+
+<details>
+<summary><b>Optional features</b></summary>
+
+Web search, app connections, voice notes, Telegram and email each turn on when you add their key to `.env` and run `docker compose up -d`. See `.env.example`. Apps like Razorpay and Vercel only need a key pasted into the Integrations page.
+
+</details>
+
+<details>
+<summary><b>Backups</b></summary>
+
+Back up the Docker volumes `postgres-data`, `gitea-data` and `app-data`, and keep your `.env`. Without `ENCRYPTION_KEY`, saved passwords can't be read.
+
+</details>
+
+<details>
+<summary><b>Build it yourself</b></summary>
+
+To run your own changes instead of the ready-made version:
+
+```bash
+git clone https://github.com/emplio-app/emplio && cd emplio && ./setup.sh --build
+```
+
+</details>
+
+## Self-hosted or Emplio Cloud
+
+| | Self-hosted | [Emplio Cloud](https://emplio.app) |
+|---|---|---|
+| Cost | Free, plus your own AI and other provider bills | Paid plans |
+| Computer | A container on your machine | Managed for you |
+| Browser | Plain Chromium; some sites will block it | Managed, with protection against blocking |
+| Links to apps the agent starts | Not available yet | Yes |
+| Keys and setup | Yours | Done for you |
+
+## Security
+
+Emplio runs commands and opens websites for you, so treat it like a member of staff with a computer.
+
+- Each person's computer and browsers run in their own containers and network.
+- Only the small `runner` service controls Docker, and only for Emplio's own two images. Don't give that access to anything else.
+- Never put this on the internet without HTTPS.
+
+## Contributing
+
+Bug reports and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). First-time contributors sign a short [contributor agreement](CLA.md) on their first pull request.
+
+## License
+
+The code is under the [GNU Affero General Public License v3.0](LICENSE). If you run a changed version as a service, you must offer your users its source code.
+
+"Emplio" and its logo are trademarks and aren't covered by that license. If you offer your own changed or hosted version, give it another name.

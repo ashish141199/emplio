@@ -1,0 +1,10 @@
+#!/bin/sh
+# Runs Emplio Cloud's check that nothing private is pushed, when this checkout has the private cloud/ folder.
+# Turn on once per clone: git config core.hooksPath .githooks
+[ -f cloud/deploy/leak-check.ts ] || exit 0
+zero=0000000000000000000000000000000000000000
+while read -r _ local_sha _ remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue
+  if [ "$remote_sha" = "$zero" ]; then range="$local_sha"; else range="$remote_sha..$local_sha"; fi
+  bun cloud/deploy/leak-check.ts "$range" || exit 1
+done

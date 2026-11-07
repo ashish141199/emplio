@@ -1,0 +1,18 @@
+{
+  "name": "emplio",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "dev:frontend": "bun --cwd frontend dev",
+    "dev:backend": "bun --cwd backend dev",
+    "db:generate": "bun --cwd backend db:generate",
+    "db:migrate": "bun --cwd backend db:migrate && if [ -d cloud/backend ]; then bun run --cwd cloud db:migrate; fi",
+    "typecheck": "bun run --filter '*' typecheck && if [ -d cloud/backend ]; then bun run --cwd cloud typecheck; fi",
+    "git": "gitea web --work-path ~/.employee0/gitea --config ~/.employee0/gitea/custom/conf/app.ini"
+  }
+}

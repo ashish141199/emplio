@@ -1,0 +1,140 @@
+# Everything Emplio needs on one machine. Run ./setup.sh the first time; it writes .env and starts this.
+# The four Emplio images are downloaded ready-made, or built here from this source with --build.
+services:
+  app:
+    image: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-app:${EMPLIO_VERSION:-latest}
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+    # the runner adds this container, by this name, to each person's private network
+    container_name: emplio-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      # a proxy on this machine or in Docker: read the person's address from what it passes on
+      TRUST_PROXY: loopback,uniquelocal
+      DATABASE_URL: postgres://emplio:${POSTGRES_PASSWORD}@postgres:5432/emplio
+      GITEA_URL: http://gitea:3000
+      COMPUTER_RUNNER_URL: http://runner:4100
+      FILE_DIR: /data/files
+      DATA_DB_DIR: /data/business-databases
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:3000:3000"
+      - "${BIND_ADDRESS:-127.0.0.1}:4000:4000"
+    volumes:
+      - app-data:/data
+      - secrets:/secrets:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+      gitea-init: { condition: service_completed_successfully }
+      runner: { condition: service_started }
+      computer-image: { condition: service_completed_successfully }
+      browser-image: { condition: service_completed_successfully }
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: emplio
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: emplio
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U emplio"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  # keeps each business's files and their history
+  gitea:
+    image: gitea/gitea:1.24
+    restart: unless-stopped
+    environment:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__service__DISABLE_REGISTRATION: "true"
+      GITEA__database__DB_TYPE: sqlite3
+      GITEA__server__HTTP_PORT: "3000"
+      GITEA__server__ROOT_URL: http://gitea:3000/
+    volumes:
+      - gitea-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:3000/api/healthz"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+
+  gitea-init:
+    image: gitea/gitea:1.24
+    restart: "no"
+    entrypoint: ["sh", "/gitea-init.sh"]
+    volumes:
+      - gitea-data:/data
+      - secrets:/secrets
+      - ./docker/gitea-init.sh:/gitea-init.sh:ro
+    depends_on:
+      gitea: { condition: service_healthy }
+
+  # The only container with control of Docker. It has no port on this machine.
+  # Security: don't add this socket to any other container.
+  runner:
+    image: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-runner:${EMPLIO_VERSION:-latest}
+    build:
+      context: .
+      dockerfile: docker/runner.Dockerfile
+    restart: unless-stopped
+    environment:
+      RUNNER_TOKEN: ${RUNNER_TOKEN}
+      COMPUTER_IMAGE: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-computer:${EMPLIO_VERSION:-latest}
+      BROWSER_IMAGE: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-browser:${EMPLIO_VERSION:-latest}
+      COMPUTER_MEMORY: ${COMPUTER_MEMORY:-2g}
+      COMPUTER_CPUS: ${COMPUTER_CPUS:-2}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # Not running services: these fetch the two images the runner starts containers from, and exit.
+  computer-image:
+    build:
+      context: .
+      dockerfile: docker/computer.Dockerfile
+    image: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-computer:${EMPLIO_VERSION:-latest}
+    command: ["true"]
+    restart: "no"
+  browser-image:
+    build:
+      context: .
+      dockerfile: docker/browser.Dockerfile
+    image: ${EMPLIO_IMAGES:-ghcr.io/emplio-app/emplio}-browser:${EMPLIO_VERSION:-latest}
+    command: ["true"]
+    restart: "no"
+
+  # Only when this install has its own web address: HTTPS, with its certificate fetched and renewed by itself.
+  caddy:
+    image: caddy:2-alpine
+    profiles: [https]
+    restart: unless-stopped
+    environment:
+      EMPLIO_DOMAIN: ${EMPLIO_DOMAIN:-}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+
+volumes:
+  app-data:
+  postgres-data:
+  gitea-data:
+  secrets:
+  caddy-data:
+  caddy-config:

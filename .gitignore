@@ -1,0 +1,22 @@
+node_modules
+.env
+.env*.local
+.next
+dist
+*.tsbuildinfo
+.DS_Store
+.dev/
+
+# macOS metadata files written on non-Mac drives
+._*
+.env.bak*
+
+# self-hosted setup
+.setup/
+setup.log
+
+# Emplio Cloud: the private cloud/ folder's files the website serves (frontend cloud:assets)
+frontend/public/cloud/
+
+# Emplio Cloud: a separate private repo cloned here by the team, CI and deploys
+/cloud/

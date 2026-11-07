@@ -1,0 +1,9 @@
+# One web address for everything: the API under /api, the app at the top. HTTPS is automatic.
+{$EMPLIO_DOMAIN} {
+	handle_path /api/* {
+		reverse_proxy app:4000
+	}
+	handle {
+		reverse_proxy app:3000
+	}
+}

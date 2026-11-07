@@ -10,6 +10,8 @@
    (the deploy) puts them; frontend/node_modules/streamdown exists only on a machine with an older install */
 @source "../../../node_modules/streamdown/dist/*.js";
 @source "../../../node_modules/@streamdown/code/dist/*.js";
+/* Emplio Cloud's pages: cloud/ is gitignored, and Tailwind skips gitignored folders unless named here */
+@source "../../../cloud/frontend";
 
 /* .dark on <html> (lib/theme.ts) switches the tokens below and shadcn's dark: styles. */
 @custom-variant dark (&:is(.dark *));

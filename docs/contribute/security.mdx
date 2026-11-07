@@ -1,0 +1,37 @@
+---
+title: "Report a security problem in Emplio privately"
+sidebarTitle: "Security"
+description: "Found a security problem in Emplio? Email it privately instead of opening a public issue, with what you found, how to reproduce it and which version you ran."
+icon: "shield"
+---
+
+If you find a security problem in Emplio, please report it privately. Don't open a public issue.
+
+<Steps>
+  <Step title="Email us">
+    Write to **ashish@kulp.ai**.
+  </Step>
+  <Step title="Say what you found">
+    Include what you found, how to reproduce it, and which version or commit you were running.
+  </Step>
+  <Step title="Hear back">
+    We'll reply as soon as we can and keep you posted while we fix it.
+  </Step>
+</Steps>
+
+<Warning>Please don't test against other people's installs or data. Your own install is fine.</Warning>
+
+## How Emplio keeps installs safe
+
+- Each person's computer and browsers run in their own containers and network.
+- Only the small `runner` service controls Docker, and only for Emplio's own two images.
+- Saved passwords and keys are encrypted with `ENCRYPTION_KEY`, and Emplio sees their names, never their values.
+
+<Columns cols={2}>
+  <Card title="Architecture" icon="network" href="/developers/architecture">
+    How the parts are kept apart.
+  </Card>
+  <Card title="Run it on a server" icon="globe" href="/self-host/server">
+    HTTPS and BIND_ADDRESS.
+  </Card>
+</Columns>

@@ -1,0 +1,50 @@
+---
+title: "Troubleshooting common problems in Emplio"
+sidebarTitle: "Troubleshooting"
+description: "Fixes for common problems: sign-in codes, a paused Emplio, apps that won't connect, blocked websites, approvals, Telegram, restricted files and stuck chats."
+icon: "life-buoy"
+---
+
+Find the problem you're seeing and open it. Running Emplio yourself? Install and server problems are in [Self-host troubleshooting](/self-host/troubleshooting).
+
+<AccordionGroup>
+  <Accordion title="I didn't get my sign-in code">
+    - Check your spam folder. The code works for 10 minutes.
+    - Wait a minute before asking for another. A code asked for under a minute ago is still on its way.
+    - Typed the wrong address? Click **Use a different email**.
+    - "Too many tries" means wait a while, then try again.
+    - On a self-hosted install with no email service, the code is in the server log. See [Self-host troubleshooting](/self-host/troubleshooting).
+  </Accordion>
+  <Accordion title="Emplio says it's paused (Emplio Cloud)">
+    This month's usage has run out. The owner or an admin can top up or upgrade from **Billing & usage**, or wait for the month to renew. See [When usage runs out](/cloud/credit).
+  </Accordion>
+  <Accordion title="An app won't connect, or stopped working">
+    Open your account menu, then **Integrations**, then **My connections**.
+    - **Expired, reconnect to keep using it**: click **Reconnect** and sign in again.
+    - **Sign-in not finished** or **Sign-in failed**: connect it again from **Browse**. If the sign-in window didn't open, allow pop-ups for Emplio.
+  </Accordion>
+  <Accordion title="A website blocks Emplio's browser">
+    If the site wants a login, a code or a CAPTCHA, open the browser beside the chat and click **Take control**. Finish that step yourself, click **Stop controlling**, then tell Emplio to carry on. Self-hosted Emplio uses a plain browser that some sites block. Emplio Cloud's browser is managed to get blocked less. See [Cloud or self-hosted](/cloud/cloud-vs-self-hosted).
+  </Accordion>
+  <Accordion title="Emplio asked for my OK and nothing happened">
+    An approval card can be answered for 2 hours, then it expires and shows **Expired, not done**. If you typed a message instead of tapping, the card shows **Skipped, you replied instead**. Either way, ask again in the chat.
+  </Accordion>
+  <Accordion title="Emplio doesn't reply on Telegram">
+    Telegram knows you by your phone number. Open your account menu, then **Channels**, and save **Your mobile number** with the country code. Then share your number with the bot, or click **Connect** and open the bot from there. If the bot says your number isn't on any team, the number saved doesn't match.
+  </Accordion>
+  <Accordion title="A staff member can't see a note, file or table">
+    This is by design. Staff don't see **Restricted** notes, the **Database** tab or tables marked **Private**. They see the files from their own chats; the owner and admins see everyone's. To give someone more, make them an admin on the **Team** page.
+  </Accordion>
+  <Accordion title="A chat seems stuck">
+    While Emplio works and the message box is empty, the send button turns into **Stop**. Click it to end the reply. If a command keeps failing the same way, Emplio stops trying and tells you in plain words what's blocking it. Each reply also stops after **Max steps per reply** in **Settings**, **Agent**.
+  </Accordion>
+</AccordionGroup>
+
+<Columns cols={2}>
+  <Card title="FAQ" icon="circle-help" href="/help/faq">
+    Short answers to common questions.
+  </Card>
+  <Card title="Security and privacy" icon="shield" href="/help/security">
+    How Emplio keeps your business safe.
+  </Card>
+</Columns>

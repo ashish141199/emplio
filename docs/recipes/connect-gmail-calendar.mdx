@@ -1,0 +1,50 @@
+---
+title: "Connect Gmail and Google Calendar to Emplio"
+sidebarTitle: "Connect Gmail and Calendar"
+description: "Connect your Gmail and Google Calendar from Integrations so Emplio can read, draft and send email and manage events, and choose when it asks first."
+icon: "plug"
+---
+
+Goal: Emplio can work in your email and calendar, and asks you before it sends or changes anything.
+
+**You need**
+
+- A Google account. Each person connects their own, so Emplio works with your inbox when you ask and theirs when they ask.
+
+<Frame caption="Integrations, Browse">
+  <img className="block dark:hidden" src="/images/app/integrations-light.png" alt="The Integrations window listing apps to connect, with a search box" />
+  <img className="hidden dark:block" src="/images/app/integrations-dark.png" alt="The Integrations window listing apps to connect, with a search box" />
+</Frame>
+
+<Steps>
+  <Step title="Open Integrations">
+    Open your account menu, then **Integrations**, then **Browse**.
+  </Step>
+  <Step title="Connect Gmail">
+    Search for **Gmail** and click **Connect**. Sign in with Google in the window that opens. It closes by itself when you're done.
+  </Step>
+  <Step title="Connect Google Calendar">
+    Do the same for **Google Calendar**.
+  </Step>
+  <Step title="Check the connections">
+    Open **My connections**. Each app should say **Connected**. If one says it expired, click **Reconnect**.
+  </Step>
+  <Step title="Try it">
+    ```text
+    What's on my calendar tomorrow, and which emails from today still need a reply?
+    ```
+  </Step>
+</Steps>
+
+**What you get:** Emplio can read, search, draft and send email, and see, create and move events. Looking things up never asks. Sending, changing or deleting shows a card: **Allow**, **Always allow** or **Deny**.
+
+<Tip>To stop the cards for one action, tap **Always allow**. To undo it, go to **Settings**, then **Agent**, and remove it under **Always allowed**. The owner or an admin can switch **Before sending or changing things** to **Just do it** for the whole business.</Tip>
+
+<Columns cols={2}>
+  <Card title="Integrations" icon="blocks" href="/guide/integrations">
+    Every app you can connect.
+  </Card>
+  <Card title="Daily brief" icon="sunrise" href="/recipes/daily-brief">
+    Put today's meetings in your morning brief.
+  </Card>
+</Columns>

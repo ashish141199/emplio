@@ -1,0 +1,50 @@
+---
+title: "Give work to your staff and let Emplio follow up"
+sidebarTitle: "Give work to staff"
+description: "Add tasks for people on the Work page or from the chat. Emplio reminds them when tasks are due and tells their manager when they run late."
+icon: "list-checks"
+---
+
+Goal: hand out work once and let Emplio do the chasing.
+
+**You need**
+
+- Your team added on the **Team** page.
+- Telegram connected for each person, if you want reminders on their phones. See [Channels](/guide/channels).
+
+<Frame caption="The Work page">
+  <img className="block dark:hidden" src="/images/app/work-light.png" alt="The Work page with tasks grouped into Needs you, Emplio is on it and Coming up" />
+  <img className="hidden dark:block" src="/images/app/work-dark.png" alt="The Work page with tasks grouped into Needs you, Emplio is on it and Coming up" />
+</Frame>
+
+<Steps>
+  <Step title="Set who reports to whom">
+    On the **Team** page, open a person's menu and choose **Set who they report to**. Managers then see and change their team's tasks.
+  </Step>
+  <Step title="Add a task">
+    On **Work**, type in the task box, pick the person under **Who**, and set a due date. Or ask in the chat:
+
+    ```text
+    Ask Rahul to send Acme the revised quote by Friday 5pm.
+    ```
+  </Step>
+  <Step title="Let Emplio chase">
+    When a task comes due, the person gets one reminder in their chat and on Telegram, during their working hours (9am to 8pm their time). After that, their morning brief lists it as late.
+  </Step>
+  <Step title="Hear about late work">
+    Two days late, Emplio tells the person they report to. With no manager set, it tells whoever asked, or the owner.
+  </Step>
+</Steps>
+
+**What you get:** one list of everyone's work. Use **Everyone**, **Mine** or **Emplio** to narrow it, and **Needs you** at the top for what's waiting on you.
+
+<Tip>People can reply to a reminder with "done" and Emplio updates the task for them.</Tip>
+
+<Columns cols={2}>
+  <Card title="Work" icon="clipboard-list" href="/guide/work">
+    Tasks for people and for Emplio.
+  </Card>
+  <Card title="Team" icon="users" href="/guide/team">
+    Roles, managers and adding people.
+  </Card>
+</Columns>

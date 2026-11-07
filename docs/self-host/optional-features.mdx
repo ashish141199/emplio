@@ -1,0 +1,48 @@
+---
+title: "Turn on optional features with your own keys"
+sidebarTitle: "Optional features"
+description: "Email sign-in codes, a Telegram bot, web search, app connections, voice notes and webhooks each turn on when you add their key to .env."
+icon: "toggle-right"
+---
+
+Each feature below stays off until you add its key. Add it to `~/emplio/.env`, then apply it:
+
+```bash
+cd ~/emplio && docker compose up -d
+```
+
+| Feature | What it unlocks | Add to `.env` |
+|---|---|---|
+| Email sign-in codes | Codes and team invites arrive by email instead of in the log. Uses [Resend](https://resend.com). | `RESEND_API_KEY`, `RESEND_FROM` |
+| Telegram | Your team talks to Emplio on Telegram. | `TELEGRAM_BOT_TOKEN` |
+| Web search | Emplio searches the web and reads pages. Uses [Exa](https://exa.ai). | `EXA_API_KEY` |
+| App connections | People sign in to Gmail, Calendar, Drive, Sheets, Zoho Books and more. Uses [Composio](https://composio.dev). | `COMPOSIO_API_KEY` |
+| Voice notes | Voice messages are turned into text. Uses [Sarvam AI](https://www.sarvam.ai). | `SARVAM_API_KEY` |
+| Webhooks | Automations that start when something happens in an app. | `WEBHOOK_URL` |
+
+## Notes on each
+
+<AccordionGroup>
+  <Accordion title="Telegram bot">
+    Make a bot with [@BotFather](https://t.me/BotFather) and paste its token as `TELEGRAM_BOT_TOKEN`. Each person then opens **Connect Telegram** in the web app, or shares the phone number on their profile with the bot. It works in private chats only, and needs no public address.
+  </Accordion>
+  <Accordion title="App connections">
+    An app shows up in **Integrations** only once Composio has a login for it. In the Composio dashboard, set up an auth config for each app you want to offer.
+  </Accordion>
+  <Accordion title="Webhooks">
+    `WEBHOOK_URL` is this server's public API address, such as `https://emplio.example.com/api`. The installer fills it in on a server. Without it, automations that wait for app events don't fire. Some triggers, like new Todoist tasks, are checked on a timer and work without it.
+  </Accordion>
+</AccordionGroup>
+
+## Apps that need only a key
+
+Some apps are built into Emplio and connect with a key pasted in **Integrations**, with nothing to add to `.env`. These include Razorpay, Vercel, IndiaMART, Swipe, Fireflies.ai, MSG91, Plivo, Neon, Fly.io, Hostinger, LiveKit, Exa, Sarvam AI, OpenRouter, Anthropic, OpenAI and Google AI Studio.
+
+<Columns cols={2}>
+  <Card title="Configuration" icon="settings" href="/self-host/configuration">
+    Every setting in `.env`.
+  </Card>
+  <Card title="Integrations" icon="plug" href="/guide/integrations">
+    Connect apps from inside Emplio.
+  </Card>
+</Columns>

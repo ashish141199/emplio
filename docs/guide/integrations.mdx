@@ -1,0 +1,70 @@
+---
+title: "Integrations: connect the apps you use"
+sidebarTitle: "Integrations"
+description: "Connect Gmail, Calendar, Drive, Zoho Books and more so Emplio can work in them, add MCP servers, and control what it may send or change."
+icon: "blocks"
+---
+
+Connect your apps and Emplio works in them for you: reads your mail, sends invoices, keeps the calendar. Your connections are yours: only your chats use them.
+
+<Frame caption="Browsing apps to connect">
+  <img className="block dark:hidden" src="/images/app/integrations-light.png" alt="The Integrations window with apps grouped by category and a Connect button on each" />
+  <img className="hidden dark:block" src="/images/app/integrations-dark.png" alt="The Integrations window with apps grouped by category and a Connect button on each" />
+</Frame>
+
+## Connect an app
+
+<Steps>
+  <Step title="Open Integrations">
+    Press your name at the bottom of the sidebar, then **Integrations**.
+  </Step>
+  <Step title="Find the app">
+    On **Browse**, search or pick a category.
+  </Step>
+  <Step title="Press Connect">
+    Sign in to the app in the small window that opens. Some apps ask you to paste a key instead. It's stored encrypted and Emplio never sees it.
+  </Step>
+</Steps>
+
+On **My connections** you can rename, **Reconnect** or **Disconnect** an account. Use **Add another** for a second account, like work and personal Gmail.
+
+## Apps you can connect
+
+| Category | Apps |
+|---|---|
+| Email | Gmail, Outlook, Zoho Mail |
+| Calendar | Google Calendar, Calendly, Google Meet, Zoom, Fireflies.ai |
+| Docs | Google Docs, Google Drive, OneDrive, Notion |
+| Spreadsheets | Google Sheets, Airtable |
+| Accounting | Zoho Books, Zoho Invoice, Swipe |
+| CRM | Zoho CRM, HubSpot, IndiaMART |
+| Team chat | Slack, Microsoft Teams |
+| Messaging | WhatsApp Business, Plivo, MSG91 |
+| Payments | Stripe, Razorpay |
+| Productivity | Todoist, Asana, ClickUp, LinkedIn, Exa |
+| Developer | GitHub, Vercel, Fly.io, Hostinger, Neon, LiveKit |
+| AI models | Anthropic, OpenAI, Google AI Studio, OpenRouter, Sarvam AI |
+
+## Approvals
+
+Looking things up never asks. Before Emplio sends, edits or deletes anything in an app, it asks you in the chat: **Allow**, **Always allow** or **Deny**. To undo an **Always allow**, remove it under **Always allowed** in [Settings](/guide/settings).
+
+## MCP servers
+
+The **MCP** tab adds tools from other services by their MCP address. The whole team can use them. Only owners and admins can add them.
+
+<Frame caption="The MCP tab">
+  <img className="block dark:hidden" src="/images/app/integrations-mcp-light.png" alt="The MCP tab listing added servers with Check and Sign in buttons" />
+  <img className="hidden dark:block" src="/images/app/integrations-mcp-dark.png" alt="The MCP tab listing added servers with Check and Sign in buttons" />
+</Frame>
+
+<Note>Running Emplio yourself? Most sign-in apps need a key on your server first. Apps that take a pasted key work straight away. See [Optional features](/self-host/optional-features).</Note>
+
+<Columns cols={2}>
+  <Card title="Connect Gmail and Calendar" icon="mail" href="/recipes/connect-gmail-calendar">
+    A worked example.
+  </Card>
+  <Card title="Passwords and keys" icon="key-round" href="/guide/logins">
+    For sites without an app.
+  </Card>
+</Columns>

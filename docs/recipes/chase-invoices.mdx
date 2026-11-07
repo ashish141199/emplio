@@ -1,0 +1,54 @@
+---
+title: "Chase unpaid invoices every week"
+sidebarTitle: "Chase invoices"
+description: "Set up Emplio to check overdue invoices in Zoho Books or your own records every week and send polite payment reminders, run by an Invoice Chaser agent."
+icon: "receipt"
+---
+
+Goal: overdue invoices get followed up every week without you remembering to do it.
+
+**You need**
+
+- Zoho Books or Zoho Invoice connected, or your invoices kept in Emplio's [records](/guide/records).
+- Gmail connected, to send the reminders.
+- To be the owner or an admin. Only they can set up automations.
+
+<Steps>
+  <Step title="Connect your accounts app">
+    Open your account menu, then **Integrations**, then **Browse**. Find **Zoho Books** or **Zoho Invoice** and click **Connect**.
+  </Step>
+  <Step title="Ask once, by hand">
+    ```text
+    Which invoices are unpaid and more than 30 days overdue? List customer, amount and days late.
+    ```
+    Check the list looks right before you automate it.
+  </Step>
+  <Step title="Give the job its own agent">
+    ```text
+    Set up an Invoice Chaser agent for payment follow-ups.
+    ```
+    The agent appears on the **Team** page under **Agents**. It keeps lessons from each job it does.
+  </Step>
+  <Step title="Put it on a schedule">
+    ```text
+    Every Monday at 10am, have the Invoice Chaser check overdue invoices and email each customer a polite reminder.
+    ```
+    Emplio saves this as an automation and shows a card asking you to allow what it will send on every run.
+  </Step>
+  <Step title="Check what it may do">
+    Open your account menu, then **Automations**. Each automation lists the actions it sends or changes, with a switch for each. Anything not switched on is refused when it runs.
+  </Step>
+</Steps>
+
+**What you get:** a run every Monday in its own chat, and a line or two in your main chat on what came of it. Routine runs with nothing for you stay quiet.
+
+<Tip>Tell it your exceptions once: "Never chase Mehta Stores, they pay every quarter." Emplio keeps the rule in company memory.</Tip>
+
+<Columns cols={2}>
+  <Card title="Automations" icon="zap" href="/guide/automations">
+    Schedules, app events, and running one by hand.
+  </Card>
+  <Card title="Agents" icon="bot" href="/guide/agents">
+    The helpers Emplio sets up for repeat work.
+  </Card>
+</Columns>

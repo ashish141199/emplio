@@ -1,0 +1,50 @@
+---
+title: "Passwords and keys: let Emplio sign in for you"
+sidebarTitle: "Passwords & keys"
+description: "Save website logins and API keys so Emplio can sign in or use them for you. They are kept encrypted and Emplio never sees what you typed."
+icon: "key-round"
+---
+
+When Emplio needs to sign in to a website, or use a key for a service, you save it once in **Passwords & keys**. It's kept encrypted, and Emplio never sees what you typed.
+
+<Frame caption="Passwords & keys">
+  <img className="block dark:hidden" src="/images/app/logins-light.png" alt="The Passwords and keys page listing saved logins by website, with when each was last used" />
+  <img className="hidden dark:block" src="/images/app/logins-dark.png" alt="The Passwords and keys page listing saved logins by website, with when each was last used" />
+</Frame>
+
+## Save one
+
+Usually Emplio asks for it in the chat with a button. Press it, fill in the form and press **Save**. Then tell Emplio it's saved.
+
+To add one yourself:
+
+<Steps>
+  <Step title="Open Passwords & keys">
+    Press your name at the bottom of the sidebar, then **Passwords & keys**.
+  </Step>
+  <Step title="Press Add">
+    Pick **Website login** or **API key or token**.
+  </Step>
+  <Step title="Fill it in">
+    Enter the **Website**, a **Name**, and the login details or the **Key or token**. Press **Save**.
+  </Step>
+</Steps>
+
+## How Emplio uses them
+
+Emplio knows each one only by its name. Emplio's server types the password into the website for it, or adds the key to the request, and only on the site it was saved for. Each person's saved logins are their own.
+
+## Remove one
+
+Press the bin icon beside it. Emplio won't be able to use it any more.
+
+<Note>Sites Emplio signs in to stay signed in, in its browser, for next time.</Note>
+
+<Columns cols={2}>
+  <Card title="Integrations" icon="blocks" href="/guide/integrations">
+    Connect apps instead, where you can.
+  </Card>
+  <Card title="Security" icon="shield" href="/help/security">
+    How Emplio keeps your data safe.
+  </Card>
+</Columns>

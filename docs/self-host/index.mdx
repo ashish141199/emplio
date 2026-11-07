@@ -1,0 +1,55 @@
+---
+title: "Run Emplio yourself on your own computer or server"
+sidebarTitle: "Overview"
+description: "Self-hosted Emplio is free and open source under AGPL-3.0. It runs in Docker on your machine, and your business's data stays there."
+icon: "server"
+---
+
+Emplio is open source, so you can run the whole thing on your own computer or server. One command installs it, and the same command updates it later.
+
+## What you get
+
+- **Free.** The code is under the [GNU AGPL-3.0](https://github.com/emplio-app/emplio/blob/main/LICENSE). You pay only your own AI and other provider bills.
+- **Your data on your machine.** Chats, memory, records and files are kept in Docker volumes on the machine you run it on.
+- **The same Emplio.** Its own computer and browser, apps, memory in git, tasks, agents and automations.
+
+## Self-hosted or Emplio Cloud
+
+| | Self-hosted | [Emplio Cloud](https://emplio.app) |
+|---|---|---|
+| Cost | Free, plus your own AI and other provider bills | Paid plans |
+| Computer | A container on your machine | Managed for you |
+| Browser | Plain Chromium; some sites will block it | Managed, with protection against blocking |
+| Links to apps Emplio starts | Not available yet | Yes |
+| Keys and setup | Yours | Done for you |
+
+<Note>Emplio runs commands and opens websites for you. Treat it like a member of staff with a computer, and never put it on the internet without HTTPS.</Note>
+
+## Pages in this section
+
+<Columns cols={2}>
+  <Card title="Install Emplio" icon="download" href="/self-host/install">
+    One command, three questions, and a sign-in link.
+  </Card>
+  <Card title="Requirements" icon="list-checks" href="/self-host/requirements">
+    Docker, memory, ports and an AI key.
+  </Card>
+  <Card title="Run it on a server" icon="globe" href="/self-host/server">
+    Your own web address with automatic HTTPS.
+  </Card>
+  <Card title="Optional features" icon="toggle-right" href="/self-host/optional-features">
+    Email codes, Telegram, web search, apps and voice notes.
+  </Card>
+  <Card title="Configuration" icon="settings" href="/self-host/configuration">
+    Every setting in `.env`, in one place.
+  </Card>
+  <Card title="Update and back up" icon="refresh-cw" href="/self-host/update-backup">
+    Stay current and keep a copy of your data.
+  </Card>
+  <Card title="Troubleshooting" icon="life-buoy" href="/self-host/troubleshooting">
+    Fixes for the common problems, and how to read logs.
+  </Card>
+  <Card title="How it fits together" icon="network" href="/developers/architecture">
+    The parts that run on your machine.
+  </Card>
+</Columns>

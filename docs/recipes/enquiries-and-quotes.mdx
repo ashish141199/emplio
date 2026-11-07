@@ -1,0 +1,62 @@
+---
+title: "Turn email enquiries into leads, replies and quotes"
+sidebarTitle: "Enquiries and quotes"
+description: "Have Emplio read new enquiries in Gmail, add each one to your leads, draft replies for you to check, and make a quote PDF you can send."
+icon: "mail"
+---
+
+Goal: every enquiry in your inbox gets saved as a lead and answered, with a proper quote when the customer asks for one.
+
+**You need**
+
+- Gmail connected. See [Connect Gmail and Calendar](/recipes/connect-gmail-calendar).
+- Your price list, as a file or a message.
+
+<Frame caption="Emplio working through enquiries in the chat">
+  <img className="block dark:hidden" src="/images/app/chat-light.png" alt="A chat where Emplio reads enquiries, adds leads and drafts replies" />
+  <img className="hidden dark:block" src="/images/app/chat-dark.png" alt="A chat where Emplio reads enquiries, adds leads and drafts replies" />
+</Frame>
+
+<Steps>
+  <Step title="Give it your prices once">
+    Attach your price list to a message and say:
+
+    ```text
+    This is our price list. Use it for every quote.
+    ```
+  </Step>
+  <Step title="Ask it to go through the enquiries">
+    ```text
+    Go through this week's enquiries in Gmail, add them to our leads, and draft replies.
+    ```
+    Emplio shows each step as it works.
+  </Step>
+  <Step title="Check the drafts">
+    Before it saves or sends anything in Gmail, a card asks you. Tap **Allow**, **Always allow** or **Deny**.
+  </Step>
+  <Step title="Make a quote">
+    ```text
+    Make a quote PDF for Sharma Traders: 200 kg basmati at our wholesale rate, 30 days' credit.
+    ```
+    The PDF appears in the chat. Open it to download it or get a share link. It is also kept in **Memory** under **Files**.
+  </Step>
+  <Step title="Make it automatic (optional)">
+    ```text
+    Whenever a new enquiry email comes in, add it to Leads and draft a reply.
+    ```
+    Emplio saves this as an [automation](/guide/automations). Only the owner and admins can set one up.
+  </Step>
+</Steps>
+
+**What you get:** a Leads table that stays up to date, replies waiting for your OK, and quotes made from your own prices.
+
+<Tip>Correct a draft once ("we never offer free delivery under 50 kg") and Emplio keeps that rule for next time. See [Teach it a rule](/recipes/teach-a-rule).</Tip>
+
+<Columns cols={2}>
+  <Card title="Track your leads" icon="table" href="/recipes/track-leads">
+    See, search and export the leads Emplio saves.
+  </Card>
+  <Card title="Chase unpaid invoices" icon="receipt" href="/recipes/chase-invoices">
+    Follow up on money owed, every week.
+  </Card>
+</Columns>

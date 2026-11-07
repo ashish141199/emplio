@@ -1,0 +1,71 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "maple",
+  "name": "Emplio",
+  "description": "Docs for Emplio, the open-source, self-learning AI employee.",
+  "colors": { "primary": "#1a613f", "light": "#49a072", "dark": "#1a613f" },
+  "logo": { "light": "/images/logo-light.png", "dark": "/images/logo-dark.png", "href": "https://emplio.app" },
+  "favicon": { "light": "/favicon-light.svg", "dark": "/favicon-dark.svg" },
+  "fonts": {
+    "heading": { "family": "Bricolage Grotesque", "weight": 600 },
+    "body": { "family": "DM Sans", "weight": 400 }
+  },
+  "icons": { "library": "lucide" },
+  "appearance": { "default": "system" },
+  "navbar": {
+    "links": [{ "type": "github", "href": "https://github.com/emplio-app/emplio" }],
+    "primary": { "type": "button", "label": "Try Emplio Cloud", "href": "https://emplio.app" }
+  },
+  "footer": { "socials": { "github": "https://github.com/emplio-app/emplio", "website": "https://emplio.app" } },
+  "contextual": { "options": ["copy", "view", "chatgpt", "claude"] },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "icon": "book-open",
+        "groups": [
+          { "group": "Get started", "pages": ["index", "quickstart", "first-steps", "concepts"] },
+          {
+            "group": "Using Emplio",
+            "pages": [
+              "guide/chat", "guide/work", "guide/memory", "guide/files", "guide/records", "guide/team",
+              "guide/agents", "guide/skills", "guide/automations", "guide/integrations", "guide/channels",
+              "guide/logins", "guide/import", "guide/settings", "guide/businesses"
+            ]
+          },
+          {
+            "group": "Recipes",
+            "pages": [
+              "recipes/index", "recipes/enquiries-and-quotes", "recipes/chase-invoices", "recipes/daily-brief",
+              "recipes/teach-a-rule", "recipes/record-a-task", "recipes/track-leads", "recipes/give-work-to-staff",
+              "recipes/connect-gmail-calendar"
+            ]
+          },
+          { "group": "Emplio Cloud", "pages": ["cloud/plans", "cloud/billing", "cloud/credit", "cloud/cloud-vs-self-hosted"] },
+          { "group": "Help", "pages": ["help/troubleshooting", "help/faq", "help/security"] }
+        ]
+      },
+      {
+        "tab": "Open source",
+        "icon": "github",
+        "groups": [
+          {
+            "group": "Self-host",
+            "pages": [
+              "self-host/index", "self-host/install", "self-host/requirements", "self-host/server",
+              "self-host/optional-features", "self-host/configuration", "self-host/update-backup", "self-host/troubleshooting"
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              "developers/architecture", "developers/build-from-source", "developers/project-map", "developers/cli",
+              "developers/extend", "developers/add-app-or-channel"
+            ]
+          },
+          { "group": "Contribute", "pages": ["contribute/contributing", "contribute/cla", "contribute/security", "contribute/code-of-conduct"] }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+---
+title: "Get started with Emplio in five minutes"
+sidebarTitle: "Quickstart"
+description: "Sign up for Emplio Cloud or install Emplio on your own computer, sign in with an email code, and give Emplio its first piece of work."
+icon: "rocket"
+---
+
+You can use Emplio on Emplio Cloud, with nothing to install, or run it yourself for free. Pick one, sign in, and you are talking to Emplio a few minutes later.
+
+<Tabs>
+  <Tab title="Emplio Cloud" icon="cloud">
+    <Steps>
+      <Step title="Open emplio.app">
+        Go to [emplio.app](https://emplio.app) and click to get started.
+      </Step>
+      <Step title="Sign in with your email">
+        Enter your **Email**, then the 6-digit **Verification code** we send you, then your **Full name**.
+      </Step>
+      <Step title="Tell Emplio about your business">
+        Answer a few short questions. Every step can be skipped. See [Your first 10 minutes](/first-steps).
+      </Step>
+      <Step title="Pick a plan">
+        Choose a plan or a 7-day pass. See [Plans and usage](/cloud/plans).
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Run it yourself" icon="server">
+    <Steps>
+      <Step title="Install Docker">
+        Get [Docker](https://docs.docker.com/get-docker/). On a Linux server the installer can add it for you.
+      </Step>
+      <Step title="Run the installer">
+        ```bash
+        curl -fsSL https://emplio.app/install.sh | bash
+        ```
+        It asks for an [OpenRouter](https://openrouter.ai/keys) key, your email, and your web address if you have one.
+      </Step>
+      <Step title="Open your sign-in link">
+        The installer prints a link that signs you in as the owner. On a computer, Emplio opens at `http://localhost:3000`.
+      </Step>
+    </Steps>
+    <Note>Full details, including servers and HTTPS, are in [Install Emplio](/self-host/install).</Note>
+  </Tab>
+</Tabs>
+
+<Frame caption="Signing in with an email code">
+  <img className="block dark:hidden" src="/images/app/login-light.png" alt="The Emplio sign-in page asking for an email address" />
+  <img className="hidden dark:block" src="/images/app/login-dark.png" alt="The Emplio sign-in page asking for an email address" />
+</Frame>
+
+## Give it its first job
+
+Type what you need in the chat, the way you'd ask a colleague:
+
+> Go through this week's enquiries in Gmail, add them to our leads, and draft replies.
+
+Emplio shows each step as it works, and asks you before it sends, changes or deletes anything in your apps.
+
+<Columns cols={2}>
+  <Card title="Your first 10 minutes" icon="timer" href="/first-steps">
+    What the setup steps do and what to try first.
+  </Card>
+  <Card title="Key ideas" icon="lightbulb" href="/concepts">
+    Chat, work, memory, agents and approvals in one page.
+  </Card>
+</Columns>

@@ -1,0 +1,55 @@
+---
+title: "The emplio command Emplio uses on its computer"
+sidebarTitle: "The emplio command"
+description: "Emplio works through one command on its own computer: emplio. The groups it has, what each does, and where to read it to understand or extend Emplio."
+icon: "terminal"
+---
+
+Emplio does its work by running shell commands on its own computer. Everything beyond plain Linux goes through one command, `emplio`, installed at `/usr/local/bin/emplio`. `ez` is its old name, kept so skills saved before the rename still work.
+
+People don't type these. Reading them is the quickest way to see what Emplio can do, and where to add something new.
+
+## Command groups
+
+| Group | What it does | Examples |
+|---|---|---|
+| `view`, `text`, `media` | Look at images and PDFs, get a document's words, fetch a large stored file | `emplio view out/quote.pdf`, `emplio text in/order.xlsx` |
+| `browser` | Drive this chat's browser | `emplio browser open <url>`, `emplio browser snapshot -i` |
+| `ask` | Ask the person, with answers to tap | `emplio ask "<question>" "<answer>" ...` |
+| `team` | Who's on the team, roles and managers | `emplio team list`, `emplio team add <email>` |
+| `apps` | The person's connected apps and their actions | `emplio apps list`, `emplio apps run <action> '<json>'` |
+| `mcp` | The business's MCP servers | `emplio mcp list`, `emplio mcp add <name> <https url>` |
+| `automations` | Things that run on a schedule or app event | `emplio automations list`, `emplio automations triggers <app>` |
+| `search`, `export` | One search over files, chats, activity, tasks and records | `emplio search <words>`, `emplio export tasks` |
+| `history`, `activity` | Past chats, and what's been done by whom | `emplio history search`, `emplio activity --since` |
+| `channels` | Message a teammate on Telegram | `emplio channels send <email> <message>` |
+| `db` | The business's own SQL database | `emplio db tables`, `emplio db sql` |
+| `plan` | The checklist the person sees for a long job | `emplio plan set`, `emplio plan done` |
+| `tasks` | Tasks for people and for Emplio | `emplio tasks add`, `emplio tasks list` |
+| `files` | Everything Emplio has made | `emplio files list`, `emplio files share` |
+| `skills` | Read a skill, or find and install one | `emplio skills use <name>`, `emplio skills find <words>` |
+| `logins` | Saved passwords and keys, by name only | `emplio logins list`, `emplio logins ask <NAME>` |
+| `sites` | Requests saved from browser work | `emplio sites list`, `emplio sites forget <site>` |
+| `http` | A web request using a saved key as `{{NAME}}` | `emplio http <url> -H "Authorization: Bearer {{NAME}}"` |
+| `hand`, `threads` | Hand work to an agent or a copy of itself | `emplio hand <pick>`, `emplio threads list` |
+| `agents` | Emplio's saved specialists | `emplio agents list`, `emplio agents learn <name> "<line>"` |
+| `web` | Search the web and read pages | `emplio web search`, `emplio web read` |
+| `setup` | Day-one setup steps | `emplio setup status`, `emplio setup done` |
+| `report` | Report a fault in Emplio itself | `emplio report <one line>` |
+
+Most groups print their own help, like `emplio apps help`.
+
+## Where it lives
+
+The script is written in `backend/src/sandbox.ts`, in the `usage()` function and the `case` below it. Most groups pass the request to the API, which does the work and checks who may do it, so the rules stay on the server. The `mcp` group's help, for example, is in `backend/src/mcp.ts`.
+
+<Note>Each person has their own computer, and `emplio` acts as them. App actions that send, change or delete in an app can show an **Allow** or **Deny** card before they run.</Note>
+
+<Columns cols={2}>
+  <Card title="Extend Emplio" icon="puzzle" href="/developers/extend">
+    Skills, agents, automations and MCP servers.
+  </Card>
+  <Card title="Add an app or channel" icon="plug" href="/developers/add-app-or-channel">
+    New integrations and channels.
+  </Card>
+</Columns>

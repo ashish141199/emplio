@@ -1,0 +1,56 @@
+---
+title: "Run Emplio on a server with HTTPS"
+sidebarTitle: "Run on a server"
+description: "Put self-hosted Emplio on a server with your own web address or a free one. HTTPS is set up and renewed for you by the built-in Caddy service."
+icon: "globe"
+---
+
+On a server, Emplio gets a web address and HTTPS so your team can reach it from anywhere. The installer sets this up when you answer **On a server with its own web address**.
+
+<Steps>
+  <Step title="Point your address at the server">
+    Add a DNS record for your address, such as `emplio.example.com`, pointing at the server's IP address. Skip this if you use the free address below.
+  </Step>
+  <Step title="Open ports 80 and 443">
+    Allow both in the server's firewall. They are needed to get the HTTPS certificate and to serve Emplio.
+  </Step>
+  <Step title="Run the installer">
+    ```bash
+    curl -fsSL https://emplio.app/install.sh | bash
+    ```
+    Type your address when asked. When it says the address is secure and working, open the sign-in link it prints.
+  </Step>
+</Steps>
+
+## The free address
+
+Leave the address empty and the installer offers a free one from [sslip.io](https://sslip.io), made from the server's IP address, like `203-0-113-5.sslip.io`. It needs no sign-up, but it stops working if the server's IP address changes.
+
+## What the installer sets
+
+With an address, it turns on the `https` profile, which starts Caddy. Caddy fetches and renews the certificate, serves the app at the top of your address and the API under `/api`. It writes these to `.env`:
+
+```bash .env
+EMPLIO_DOMAIN=emplio.example.com
+COMPOSE_PROFILES=https
+FRONTEND_URL=https://emplio.example.com
+PUBLIC_API_URL=https://emplio.example.com/api
+WEBHOOK_URL=https://emplio.example.com/api
+```
+
+To move an install from a computer to an address later, set the same lines yourself and run `docker compose up -d` in `~/emplio`.
+
+## BIND_ADDRESS
+
+Ports 3000 and 4000 stay on `BIND_ADDRESS`, which is `127.0.0.1` by default, so only the machine itself can reach them. Caddy reaches Emplio inside Docker. Change it only if you put your own HTTPS proxy in front. That proxy should serve port 3000 at the top and port 4000 under `/api` with the prefix removed, the way `docker/Caddyfile` does.
+
+<Warning>Never open ports 3000 or 4000 to the internet without HTTPS in front of them.</Warning>
+
+<Columns cols={2}>
+  <Card title="Optional features" icon="toggle-right" href="/self-host/optional-features">
+    Webhooks, email codes and more.
+  </Card>
+  <Card title="Troubleshooting" icon="life-buoy" href="/self-host/troubleshooting">
+    When the certificate doesn't arrive.
+  </Card>
+</Columns>

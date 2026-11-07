@@ -1,0 +1,58 @@
+---
+title: "Install Emplio with one command"
+sidebarTitle: "Install"
+description: "Install self-hosted Emplio with one command. It asks three questions, starts everything in Docker, and gives you a link that signs you in as the owner."
+icon: "download"
+---
+
+One command downloads Emplio to `~/emplio`, asks three questions, and starts it in Docker. At the end it prints a link that signs you in as the owner.
+
+<Steps>
+  <Step title="Get Docker ready">
+    On a **Mac or Windows**, install [Docker Desktop](https://docs.docker.com/desktop/) and start it first. On Windows, run the command below in a WSL terminal. On a **Linux server**, the installer offers to install Docker for you.
+  </Step>
+  <Step title="Run the installer">
+    ```bash
+    curl -fsSL https://emplio.app/install.sh | bash
+    ```
+  </Step>
+  <Step title="Answer three questions">
+    1. **Your OpenRouter key**, for the AI. Get one at [openrouter.ai/keys](https://openrouter.ai/keys). The installer checks it with OpenRouter.
+    2. **Your email**, for your owner account.
+    3. **Where is this running?** Pick **On this computer, just for me** or **On a server with its own web address**. For a server, type your web address, or leave it empty for a free one. See [Run it on a server](/self-host/server).
+  </Step>
+  <Step title="Open your sign-in link">
+    When it says **Emplio is ready**, open the link it prints. It signs you in as the owner and works only once. On a computer it opens by itself, and Emplio is at `http://localhost:3000`.
+  </Step>
+</Steps>
+
+## Computer or server
+
+| | On this computer | On a server |
+|---|---|---|
+| Web address | `http://localhost:3000` | `https://` your address |
+| Who can open it | Only this machine | Anyone with an account |
+| HTTPS | Not needed | Set up for you |
+
+Over SSH, the installer picks **server** for you; press Enter to keep it.
+
+## Add your team
+
+Add people from the **Team** page. Until you set up email, their sign-in codes go to the log:
+
+```bash
+cd ~/emplio && docker compose logs app | grep "sign-in code"
+```
+
+To have codes emailed, see [Optional features](/self-host/optional-features).
+
+<Tip>To install somewhere other than `~/emplio`, set `EMPLIO_DIR` before the command. To run your own changes to the code, see [Build from source](/developers/build-from-source).</Tip>
+
+<Columns cols={2}>
+  <Card title="Requirements" icon="list-checks" href="/self-host/requirements">
+    Memory, ports and keys to plan for.
+  </Card>
+  <Card title="Optional features" icon="toggle-right" href="/self-host/optional-features">
+    Turn on email, Telegram, apps and more.
+  </Card>
+</Columns>

@@ -1,0 +1,78 @@
+---
+title: "Configuration reference for the .env file"
+sidebarTitle: "Configuration"
+description: "Every setting self-hosted Emplio reads from .env: what the installer makes for you, what you need, optional keys, limits and advanced settings."
+icon: "settings"
+---
+
+Emplio's settings live in `~/emplio/.env`, which the installer writes from `.env.example`. After you change it, run `docker compose up -d` in that folder.
+
+<Warning>`.env` holds your secrets. Keep it private, keep a copy with your backups, and never share it or commit it to git.</Warning>
+
+## Made for you by the installer
+
+| Name | What it does |
+|---|---|
+| `ENCRYPTION_KEY` | Encrypts saved passwords, pasted app keys and MCP server tokens. 32 random bytes, base64. Never change it on a running install. |
+| `RUNNER_TOKEN` | The shared secret between Emplio and the runner. At least 32 characters. |
+| `POSTGRES_PASSWORD` | The password for Emplio's Postgres database. |
+| `SETUP_TOKEN` | The one-time link that signs in the first person. |
+| `SETUP_EMAIL` | The owner's email, which that link signs in. |
+| `EMPLIO_DOMAIN` | Your web address, only on a server. Caddy gets HTTPS for it. |
+| `COMPOSE_PROFILES` | `https` starts Caddy. Empty on a computer. |
+| `SIGNUPS_CLOSED` | `1`: only the first person can sign up; everyone else is added from the **Team** page. |
+
+## Needed
+
+| Name | Default | What it does |
+|---|---|---|
+| `OPENROUTER_API_KEY` | none | Emplio's AI models, on your own [OpenRouter](https://openrouter.ai/keys) account. |
+| `FRONTEND_URL` | `http://localhost:3000` | The address people open Emplio at. |
+| `PUBLIC_API_URL` | `http://localhost:4000` | The address of Emplio's API. On a server, your address plus `/api`. |
+| `NEXT_PUBLIC_API_URL` | empty | Only with your own proxy that serves the API somewhere else. Fixed at build time, so use `./setup.sh --build`. |
+| `BIND_ADDRESS` | `127.0.0.1` | Where ports 3000 and 4000 listen. Change it only behind your own HTTPS proxy. |
+
+## Optional
+
+| Name | What it turns on |
+|---|---|
+| `RESEND_API_KEY` | Sign-in codes and invites by email. Without it, codes go to the log. |
+| `RESEND_FROM` | The address those emails come from. |
+| `TELEGRAM_BOT_TOKEN` | Your own Telegram bot, made with @BotFather. |
+| `EXA_API_KEY` | Web search. |
+| `COMPOSIO_API_KEY` | App sign-ins and actions. |
+| `SARVAM_API_KEY` | Voice notes. |
+| `WEBHOOK_URL` | This server's public address, for webhooks from other services. |
+
+See [Optional features](/self-host/optional-features) for each one.
+
+## Limits for each computer and browser
+
+| Name | Default | What it does |
+|---|---|---|
+| `COMPUTER_MEMORY` | `2g` | Memory for each person's computer and each browser. |
+| `COMPUTER_CPUS` | `2` | CPUs for each computer and each browser. |
+
+## Advanced
+
+These are read by the code but not in `.env.example`. Most installs never need them.
+
+| Name | What it does |
+|---|---|
+| `PROBLEMS_EMAIL` | Emails each problem report Emplio files to this address. Needs Resend. |
+| `GITHUB_TOKEN` | Used for GitHub requests when installing skills from the public skill store. |
+| `EMPLIO_IMAGES` | Where the images are downloaded from. Default `ghcr.io/emplio-app/emplio`. |
+| `EMPLIO_VERSION` | Which image tag to run. Default `latest`. |
+| `EMPLIO_DIR` | For the installer: the folder to install into. Default `~/emplio`. |
+| `EMPLIO_BUILD` | For `./setup.sh`: any value builds from source, like `--build`. |
+
+`docker-compose.yml` sets `DATABASE_URL`, `GITEA_URL`, `COMPUTER_RUNNER_URL`, `FILE_DIR`, `DATA_DB_DIR`, `TRUST_PROXY` and `NODE_ENV` for the app. Leave those to it.
+
+<Columns cols={2}>
+  <Card title="Optional features" icon="toggle-right" href="/self-host/optional-features">
+    What each key unlocks.
+  </Card>
+  <Card title="Update and back up" icon="refresh-cw" href="/self-host/update-backup">
+    Why `ENCRYPTION_KEY` matters.
+  </Card>
+</Columns>

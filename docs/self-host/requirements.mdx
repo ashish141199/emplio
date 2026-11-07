@@ -1,0 +1,40 @@
+---
+title: "What you need to run Emplio yourself"
+sidebarTitle: "Requirements"
+description: "Self-hosted Emplio needs Docker with Compose, about 4 GB of memory plus 2 GB per person working at once, an OpenRouter key, and ports 80 and 443 on a server."
+icon: "list-checks"
+---
+
+Check these before you install. Emplio runs everything in Docker, so the machine needs little else.
+
+| What | Why |
+|---|---|
+| Docker with Compose | Emplio and its parts run as containers. Get it at [docs.docker.com](https://docs.docker.com/get-docker/). On a Linux server the installer can add it. |
+| At least 4 GB of memory | For Emplio, its database and its file history. |
+| 2 GB more per person working at once | Each person gets their own computer and browser, each limited to 2 GB and 2 CPUs by default. |
+| An [OpenRouter](https://openrouter.ai/keys) key | Emplio's AI models, billed to your own account. |
+| Ports 80 and 443 open | Only on a server with its own web address, for HTTPS. |
+| A 64-bit Intel or ARM machine | The ready-made images are built for both. |
+
+## Your user and Docker
+
+On Linux, your user needs access to Docker. If the installer says you don't have it yet, run this, then log out and back in:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+## Memory limits
+
+The 2 GB and 2 CPU limits apply to each computer and each browser. You can change them with `COMPUTER_MEMORY` and `COMPUTER_CPUS` in `.env`. See [Configuration](/self-host/configuration).
+
+<Note>A person's computer goes to sleep about 15 minutes after its last command and frees its memory. Its files stay.</Note>
+
+<Columns cols={2}>
+  <Card title="Install Emplio" icon="download" href="/self-host/install">
+    One command, three questions.
+  </Card>
+  <Card title="Run it on a server" icon="globe" href="/self-host/server">
+    Web address, ports and HTTPS.
+  </Card>
+</Columns>

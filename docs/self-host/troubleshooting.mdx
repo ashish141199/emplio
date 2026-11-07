@@ -1,0 +1,80 @@
+---
+title: "Troubleshoot a self-hosted Emplio install"
+sidebarTitle: "Troubleshooting"
+description: "Fixes for common self-hosting problems: missing sign-in codes, Docker, busy ports, HTTPS certificates, memory and computers that won't start."
+icon: "life-buoy"
+---
+
+Run every command here from the folder you installed to, `~/emplio` by default. Find your symptom below.
+
+<AccordionGroup>
+  <Accordion title="The sign-in code never arrives">
+    Without `RESEND_API_KEY`, codes are written to the log instead of emailed:
+    ```bash
+    docker compose logs app | grep "sign-in code"
+    ```
+    A code works for 10 minutes. To email codes, see [Optional features](/self-host/optional-features).
+  </Accordion>
+  <Accordion title="Docker isn't running or can't be reached">
+    Start Docker Desktop, or the Docker service on Linux, then run the installer again. If it says permission denied, run `sudo usermod -aG docker $USER`, log out and back in, and try again.
+  </Accordion>
+  <Accordion title="A port is already in use">
+    Emplio uses ports 3000 and 4000, and 80 and 443 on a server. Find what holds one, for example port 3000:
+    ```bash
+    sudo lsof -i :3000
+    ```
+    Stop that program, then run `docker compose up -d`.
+  </Accordion>
+  <Accordion title="The HTTPS address doesn't work">
+    Check that your address's DNS record points at this server, and that ports 80 and 443 are open. Once both are right, the certificate arrives by itself within a few minutes. See what Caddy says:
+    ```bash
+    docker compose logs caddy
+    ```
+  </Accordion>
+  <Accordion title="The machine runs out of memory">
+    Plan for 4 GB, plus 2 GB for each person working at once. See what uses it with `docker stats`. Add memory, or lower `COMPUTER_MEMORY` in `.env` and run `docker compose up -d`.
+  </Accordion>
+  <Accordion title="Emplio's computer or browser won't start">
+    The runner starts them. Look at its log:
+    ```bash
+    docker compose logs runner
+    ```
+    If the images are missing, run `./setup.sh` again to fetch them.
+  </Accordion>
+</AccordionGroup>
+
+## Check it's healthy
+
+```bash
+docker compose ps
+curl http://127.0.0.1:4000/health
+```
+
+`app`, `postgres`, `gitea` and `runner` should be running. `gitea-init`, `computer-image` and `browser-image` finish their job and exit, which is normal. The health check answers `{"ok":true}`.
+
+## Read the logs
+
+```bash
+docker compose logs -f app
+```
+
+Swap `app` for `runner`, `postgres`, `gitea`, `gitea-init` or `caddy`. The installer's own output is in `setup.log`.
+
+## Restart
+
+```bash
+docker compose restart app
+```
+
+To restart everything, run `docker compose restart`. After changing `.env`, run `docker compose up -d` instead. Your data stays.
+
+<Tip>Still stuck? Open an issue on [GitHub](https://github.com/emplio-app/emplio/issues) with what happened and which version you run.</Tip>
+
+<Columns cols={2}>
+  <Card title="Configuration" icon="settings" href="/self-host/configuration">
+    Every setting in `.env`.
+  </Card>
+  <Card title="Architecture" icon="network" href="/developers/architecture">
+    What each service does.
+  </Card>
+</Columns>

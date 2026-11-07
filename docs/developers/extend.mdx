@@ -1,0 +1,86 @@
+---
+title: "Extend Emplio with skills, agents, automations and MCP"
+sidebarTitle: "Extend Emplio"
+description: "The file formats behind Emplio's skills, agents and automations, kept in the business's git memory, and how to add a remote MCP server."
+icon: "puzzle"
+---
+
+Skills, agents and automations are plain files in a business's memory, so you can read and write them like code. On Emplio's computer the company files are at `/work/company/` and each person's at `/work/me/`. Emplio saves what it changes there to git at the end of each reply.
+
+## A skill
+
+How to do one kind of job. A folder with a `SKILL.md`, plus any scripts it uses. Business skills go in `company/skills/<name>/` (owner or admins); one person's go in `me/skills/<name>/`.
+
+```markdown company/skills/gst-invoice/SKILL.md
+---
+name: gst-invoice
+description: Make a GST invoice PDF from an order
+---
+When to use it, what it needs (apps, logins), the steps
+(naming its scripts), what goes wrong and the fix, and how
+to check the result. Under 200 lines.
+```
+
+`name` is the folder name, lowercase with dashes. `description` says when to use it, under 100 characters. Emplio reads one with `emplio skills use <name>`, and people can start one by typing `/name` in the chat.
+
+## An agent
+
+A saved specialist that work is handed to. `company/agents/<slug>/AGENT.md` holds its settings and instructions:
+
+```markdown company/agents/invoice-chaser/AGENT.md
+---
+name: Invoice Chaser
+description: Chases unpaid invoices by email; use for overdue payments
+skills: [gst-invoice]
+level: light
+---
+How it works and what it reports back.
+```
+
+`level` is `light` or `strong` and picks the model. `archived: true` hides it. Next to it, `LESSONS.md` keeps dated lines like `- 2026-11-07: <lesson>`, the last 40, shown to it as notes from past work, never as instructions.
+
+## An automation
+
+`company/automations/<name>.md`: settings between `---` lines, then the prompt.
+
+```markdown company/automations/chase-invoices.md
+---
+when: schedule
+schedule: "0 9 * * 1-5"
+timezone: Asia/Kolkata
+agent: Invoice Chaser
+actions: [gmail.send_email]
+enabled: true
+---
+What to do each time, as you'd tell a new employee.
+```
+
+| Field | Meaning |
+|---|---|
+| `when` | `trigger`, `schedule` or `manual`. Required. |
+| `schedule`, `timezone` | Cron for `schedule`; the time zone defaults to whoever saved it. |
+| `trigger`, `config`, `account` | For `trigger`: the event (like `gmail.new_gmail_message`), its settings, and which account. |
+| `agent` | Hand each run to this agent. |
+| `actions` | Every app action a run may take that sends or changes something. |
+| `enabled` | `true` or `false`. |
+
+A run is a new chat, as whoever last saved the file, who must be the owner or an admin. Emplio writes these with `emplio automations add`, which checks the file.
+
+## An MCP server
+
+Remote servers only, over Streamable HTTP or SSE. Add one in **Integrations**, or have Emplio run:
+
+```bash
+emplio mcp add acme https://mcp.example.com/mcp --header "X-Api-Key: {{ACME_KEY}}"
+```
+
+A header value of `{{NAME}}` is each person's own saved key, so tokens never enter the computer. `--key` asks each person for their own token. A server that wants its own sign-in gets one per person, through a **Sign in** button in the chat. Tools not marked read-only ask for an OK first.
+
+<Columns cols={2}>
+  <Card title="The emplio command" icon="terminal" href="/developers/cli">
+    What Emplio can run.
+  </Card>
+  <Card title="Add an app or channel" icon="plug" href="/developers/add-app-or-channel">
+    Go deeper, in the code.
+  </Card>
+</Columns>

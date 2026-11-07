@@ -1,0 +1,52 @@
+---
+title: "Records: Emplio's built-in database"
+sidebarTitle: "Records"
+description: "Emplio keeps leads, orders, stock and other records in its own database. View the tables, search, filter and export them to Excel."
+icon: "database"
+---
+
+Emplio keeps structured records, like leads, orders or stock, in its own database, and reads and updates them as it works. Owners and admins can view them under **Memory**, then **Database**.
+
+<Frame caption="A table in the Database">
+  <img className="block dark:hidden" src="/images/app/database-light.png" alt="The Database page with a list of tables and one table's rows" />
+  <img className="hidden dark:block" src="/images/app/database-dark.png" alt="The Database page with a list of tables and one table's rows" />
+</Frame>
+
+## Make or change a table
+
+Ask in a chat: "Keep a table of our leads with name, phone, source and status." Emplio makes it and fills it in. To add a column or fix rows, just ask again.
+
+## View a table
+
+<Steps>
+  <Step title="Pick a table">
+    Choose it from the list on the left.
+  </Step>
+  <Step title="Search, sort and filter">
+    Use **Search this table**. Click a column's name to sort by it, or its filter button to filter it.
+  </Step>
+  <Step title="Export">
+    Press **Export to Excel** to download what you see.
+  </Step>
+</Steps>
+
+The page is read-only. Changes go through Emplio.
+
+## Who can use it
+
+| | Owners and admins | Staff |
+|---|---|---|
+| See the **Database** tab | Yes | No |
+| Use tables through Emplio | All tables | All except **Private** ones |
+| Make or change tables | Yes | No |
+
+Emplio marks tables private when they hold things staff shouldn't see, like pay or bank details. Turn **Private** on or off at the top of a table.
+
+<Columns cols={2}>
+  <Card title="Track leads" icon="target" href="/recipes/track-leads">
+    A worked example.
+  </Card>
+  <Card title="Team" icon="users" href="/guide/team">
+    Owners, admins and staff.
+  </Card>
+</Columns>

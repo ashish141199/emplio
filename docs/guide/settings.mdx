@@ -1,0 +1,68 @@
+---
+title: "Settings: how Emplio works for your business"
+sidebarTitle: "Settings"
+description: "Choose model quality, approvals, rich replies, the morning brief and end-of-day report times, and the look of the app, tab by tab."
+icon: "settings"
+---
+
+Settings apply to everyone in the business, from the next message. Everyone can look; only owners and admins can change them. Open it from your name at the bottom of the sidebar, then **Settings**.
+
+<Frame caption="The Agent tab">
+  <img className="block dark:hidden" src="/images/app/settings-agent-light.png" alt="Settings on the Agent tab with Quality, Max steps per reply and approval options" />
+  <img className="hidden dark:block" src="/images/app/settings-agent-dark.png" alt="Settings on the Agent tab with Quality, Max steps per reply and approval options" />
+</Frame>
+
+## Agent
+
+Also here: **Brief Emplio** to run the setup chat again, **Bring your memory**, and **Always allowed**, the actions you told it to stop asking about.
+
+| Setting | What it does | Default |
+|---|---|---|
+| **Quality** | **Free**, **Save money**, **Default** or **Best quality**. Better models handle harder jobs but cost more. | Default |
+| **Max steps per reply** | Stops a reply after this many actions, so a stuck one can't run up costs. | 60 |
+| **Before sending or changing things** | **Ask first**: you approve each one. **Just do it**: no approval, but nobody checks. | Ask first |
+| **Rich replies** | Tables, charts and buttons in replies. Makes each reply a bit pricier. | Off |
+
+Under **Advanced** you can pick each model yourself, set the reasoning effort, or add your own OpenRouter key.
+
+## Context
+
+| Setting | What it does | Default |
+|---|---|---|
+| **Compact at** | Past this size, older messages are summarised to keep replies cheap. Nothing is deleted. | 100,000 tokens |
+
+## Sandbox
+
+| Setting | What it does | Default |
+|---|---|---|
+| **Command timeout** | Stops a command on Emplio's computer that runs longer than this. | 120 seconds |
+
+## Schedule
+
+<Frame caption="The Schedule tab">
+  <img className="block dark:hidden" src="/images/app/settings-schedule-light.png" alt="Settings on the Schedule tab with background rounds, morning brief and end-of-day report times" />
+  <img className="hidden dark:block" src="/images/app/settings-schedule-dark.png" alt="Settings on the Schedule tab with background rounds, morning brief and end-of-day report times" />
+</Frame>
+
+| Setting | What it does | Default |
+|---|---|---|
+| **Background rounds** | How often it looks around on its own in the working day. **Off** means it only works when messaged. | Every 2 hours |
+| **Morning brief** | Your brief of the day, and the start of its working day. | 9am |
+| **End-of-day report** | What got done, what didn't and what's next. | 7pm |
+| **Staff briefs and reports** | Each team member gets their own brief and report at the same times. | On |
+| **Read chats after** | How long a chat must be quiet before Emplio reads it for its rounds. | 10 minutes |
+
+## Appearance
+
+Pick **Match this device**, **Light** or **Dark**. This is just for you, on this device, and applies at once.
+
+<Tip>Press **Save** at the bottom to keep changes, or **Undo changes** to drop them.</Tip>
+
+<Columns cols={2}>
+  <Card title="Automations" icon="zap" href="/guide/automations">
+    Briefs, reports and scheduled work.
+  </Card>
+  <Card title="Key ideas" icon="lightbulb" href="/concepts">
+    Approvals and more.
+  </Card>
+</Columns>

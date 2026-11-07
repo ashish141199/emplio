@@ -1,0 +1,67 @@
+---
+title: "Update Emplio and back up your data"
+sidebarTitle: "Update and back up"
+description: "Update self-hosted Emplio by running the installer again, and back up its Docker volumes and .env so you can restore chats, memory, records and saved logins."
+icon: "refresh-cw"
+---
+
+Updating keeps your settings and data. Backing up means copying Emplio's Docker volumes and your `.env`.
+
+## Update
+
+Run the installer again:
+
+```bash
+curl -fsSL https://emplio.app/install.sh | bash
+```
+
+Or, from the folder you installed to:
+
+```bash
+cd ~/emplio && ./setup.sh
+```
+
+It keeps your `.env`, downloads the newest images, restarts Emplio and checks it's up. The installer replaces the other files in `~/emplio`, so keep your own changes in `.env`.
+
+## What to back up
+
+| Volume | What's in it |
+|---|---|
+| `postgres-data` | Accounts, chats, tasks, automations, settings and saved logins. |
+| `gitea-data` | Memory: each business's files and their full history. |
+| `app-data` | Uploaded and made files, and each business's records database. |
+| `secrets` | The token Emplio uses to reach its file history. |
+
+Keep a copy of `.env` too. Without the same `ENCRYPTION_KEY`, saved passwords and keys can't be read.
+
+## Back up with Docker
+
+Docker names the volumes after the install folder, so in `~/emplio` they are `emplio_postgres-data` and so on. Check yours with `docker volume ls`. This stops Emplio for a moment, writes one archive per volume to `~/emplio/backups`, and starts it again:
+
+```bash
+cd ~/emplio
+mkdir -p backups
+docker compose stop
+for v in postgres-data gitea-data app-data secrets; do
+  docker run --rm -v "emplio_$v:/from:ro" -v "$PWD/backups:/to" alpine tar -czf "/to/$v.tar.gz" -C /from .
+done
+cp .env backups/
+docker compose start
+```
+
+Copy the `backups` folder somewhere off the machine.
+
+<Warning>Never run `docker compose down -v`. The `-v` deletes the volumes, and with them all of Emplio's data.</Warning>
+
+## Restore
+
+On the new machine, put your `.env` in the install folder first, so the installer keeps it. Unpack each archive into the volume of the same name before Emplio starts, then run `./setup.sh`.
+
+<Columns cols={2}>
+  <Card title="Configuration" icon="settings" href="/self-host/configuration">
+    What each setting in `.env` does.
+  </Card>
+  <Card title="Troubleshooting" icon="life-buoy" href="/self-host/troubleshooting">
+    If something doesn't come back up.
+  </Card>
+</Columns>

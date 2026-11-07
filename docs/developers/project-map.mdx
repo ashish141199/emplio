@@ -1,0 +1,68 @@
+---
+title: "Project map: where everything lives in the repo"
+sidebarTitle: "Project map"
+description: "A map of the Emplio repository: the API, the web app, shared types, the runner, the Docker files, the installer and the docs, with what each holds."
+icon: "folder-tree"
+---
+
+Emplio is one Bun workspace with three packages (`backend`, `frontend`, `shared`) plus the runner and the Docker files. Open a folder to see what it holds.
+
+<Tree>
+  <Tree.Folder name="backend" defaultOpen>
+    <Tree.Folder name="src">
+      <Tree.Folder name="channels" />
+      <Tree.Folder name="db" />
+      <Tree.Folder name="integrations">
+        <Tree.Folder name="own" />
+        <Tree.Folder name="polls" />
+      </Tree.Folder>
+      <Tree.File name="index.ts" />
+      <Tree.File name="sandbox.ts" />
+    </Tree.Folder>
+    <Tree.Folder name="drizzle" />
+    <Tree.Folder name="scripts" />
+  </Tree.Folder>
+  <Tree.Folder name="frontend">
+    <Tree.Folder name="src">
+      <Tree.Folder name="app" />
+      <Tree.Folder name="components" />
+    </Tree.Folder>
+  </Tree.Folder>
+  <Tree.Folder name="shared" />
+  <Tree.Folder name="runner" />
+  <Tree.Folder name="docker" />
+  <Tree.Folder name="docs" />
+  <Tree.Folder name=".github" />
+  <Tree.File name="install.sh" />
+  <Tree.File name="setup.sh" />
+  <Tree.File name="docker-compose.yml" />
+  <Tree.File name=".env.example" />
+</Tree>
+
+| Path | What it holds |
+|---|---|
+| `backend/src` | The API (Bun and Fastify): chat, `emplio` commands, apps, automations, agents, background work. Starts at `index.ts`. |
+| `backend/src/sandbox.ts` | Each person's computer, the `emplio` command and Emplio's rules. |
+| `backend/src/integrations` | Apps: Composio, in-house apps (`own/`), polled triggers (`polls/`) and the app list (`catalog.ts`). |
+| `backend/src/channels` | Ways to talk besides the web app. Telegram today. |
+| `backend/src/db` | The Postgres schema, with migrations in `backend/drizzle`. |
+| `backend/scripts` | Tools for builders, such as `openapi-actions.ts` for in-house apps. |
+| `frontend/src` | The web app (Next.js and shadcn/ui). |
+| `shared` | Types and helpers used by both the API and the web app. |
+| `runner` | The gatekeeper: the only program that controls Docker. |
+| `docker` | Dockerfiles for the four images, the Caddyfile, start scripts and the smoke test. |
+| `docs` | These docs (Mintlify). |
+| `.github` | CI, the contributor agreement check, issue and pull request templates. |
+| `install.sh` | The one-line installer. Downloads the repo, then runs `setup.sh`. |
+| `setup.sh` | Writes `.env` the first time, then downloads or builds and starts everything. |
+| `docker-compose.yml` | Every service on one machine. |
+| `.env.example` | The settings, with notes. See [Configuration](/self-host/configuration). |
+
+<Columns cols={2}>
+  <Card title="Architecture" icon="network" href="/developers/architecture">
+    How the parts connect.
+  </Card>
+  <Card title="Add an app or channel" icon="plug" href="/developers/add-app-or-channel">
+    Where new integrations go.
+  </Card>
+</Columns>

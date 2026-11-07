@@ -1,0 +1,63 @@
+---
+title: "Add an app, a polled trigger or a channel"
+sidebarTitle: "Add an app or channel"
+description: "Add an in-house app connected with a pasted key, offer a Composio app, add a trigger Emplio polls for, or add a new chat channel next to Telegram."
+icon: "plug"
+---
+
+Apps, triggers and channels each have one folder and one list to add to. Copy the closest existing one.
+
+## An in-house app
+
+In-house apps connect with a key the person pastes in **Integrations**. Their actions are plain functions.
+
+<Steps>
+  <Step title="Write the app">
+    Add `backend/src/integrations/own/<app>.ts`, or a folder `own/<app>/` with an `index.ts`. Export an `OwnApp` (type in `own/index.ts`): `app`, `name`, `logo`, `keyField` (the paste box), `check(key)` that throws if the key fails, and `actions`. Each action has a `description`, a zod `input`, `run(input, key)`, and `readOnly: true` if it only looks things up. Others ask the person first.
+  </Step>
+  <Step title="List it">
+    Add it to `APPS` in `own/index.ts`, and to `CATALOG` in `integrations/catalog.ts` with `own("<app>", "<Name>", "<category>", "<what it does>")`.
+  </Step>
+  <Step title="Test it">
+    Put `<app>.test.ts` next to it, like the others.
+  </Step>
+</Steps>
+
+Actions are named `<app>.<action>`. `own/indiamart.ts` is a small hand-written example.
+
+### From an OpenAPI spec
+
+For an API with a spec, write `backend/scripts/openapi/<app>.ts` (the spec URL, the output file, names, and which calls only read or return secrets), then generate the actions:
+
+```bash
+cd backend && bun scripts/openapi-actions.ts <app>
+```
+
+It writes `own/<app>/actions.json`, which `own/openapi.ts` runs. See `own/neon/` for a complete one.
+
+### COVERAGE.md
+
+Each in-house app folder has a `COVERAGE.md`: where its actions came from, what was left out and why, how it signs in, and its actions by group, with `*` on those that ask first.
+
+## A Composio app
+
+Add a `composio("<toolkit>", "<Name>", "<category>", "<what it does>")` line to `catalog.ts`, then set up its auth config in the Composio dashboard. It shows up only when both are there.
+
+## A polled trigger
+
+Emplio checks an app on a timer and fires only on new items. Write `backend/src/integrations/polls/<app>.ts` (copy `todoist.ts`), exporting triggers by short name. Each has a `description`, a zod `config`, its `output`, `every` and `min` minutes, and `poll(config, run)` returning the current recent items, each with an `id` that never changes. Add it to `APPS` in `polls/index.ts`.
+
+## A channel
+
+A channel only moves messages. Write `backend/src/channels/<name>.ts` like `telegram.ts`: a `Channel` with `send`, `approval` and `closeApproval`, and an `Out` for showing replies. Add it to `CHANNELS` in `channels/index.ts`, add its name to the `channel` enums in `backend/src/db/schema.ts` with a migration (`bun run db:generate`), and start it from `backend/src/index.ts` the way `telegram.start()` is.
+
+<Note>Open an issue first for a new app or channel, so we can agree on the approach. See [Contributing](/contribute/contributing).</Note>
+
+<Columns cols={2}>
+  <Card title="Project map" icon="folder-tree" href="/developers/project-map">
+    Where everything lives.
+  </Card>
+  <Card title="Extend Emplio" icon="puzzle" href="/developers/extend">
+    Skills, agents, automations and MCP.
+  </Card>
+</Columns>

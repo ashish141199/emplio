@@ -4,7 +4,8 @@ export type User = { id: string; email: string; name: string | null };
 export type Workspace = { id: string; name: string; role: "owner" | "admin" | "member" };
 
 export type AuthStartRequest = { email: string };
-export type AuthStartResponse = { isNewUser: boolean };
+// notEmailed: no email service on this server, so the code is only in its log
+export type AuthStartResponse = { isNewUser: boolean; notEmailed?: boolean };
 
 export type AuthVerifyRequest = { email: string; code: string };
 

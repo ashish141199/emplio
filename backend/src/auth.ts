@@ -142,7 +142,8 @@ export async function authRoutes(app: FastifyInstance) {
 
       // a code asked for under a minute ago is still on its way; don't send a second
       const open = await db.query.loginCodes.findFirst({ where: eq(loginCodes.email, email) });
-      if (open && open.expiresAt.getTime() - Date.now() > (CODE_MINUTES - 1) * 60_000) return res;
+      if (open && open.expiresAt.getTime() - Date.now() > (CODE_MINUTES - 1) * 60_000)
+        return { ...res, notEmailed: !process.env.RESEND_API_KEY || undefined };
 
       const fixed = cloud.fixedCode(email);
       const code = fixed ?? String(randomInt(0, 1_000_000)).padStart(6, "0");
@@ -153,7 +154,7 @@ export async function authRoutes(app: FastifyInstance) {
       // no email service set up: whoever runs this server reads the code from its log
       if (!process.env.RESEND_API_KEY) {
         req.log.warn(`Not emailed (no RESEND_API_KEY): the sign-in code for ${email} is ${code}`);
-        return res;
+        return { ...res, notEmailed: true };
       }
       const sent = await sendEmail(
         email,

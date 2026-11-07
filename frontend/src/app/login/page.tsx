@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
+import type { AuthStartResponse } from "@emplio/shared";
 import { api, meQueryKey, useMe } from "@/lib/api";
 
 export default function LoginPage() {
@@ -38,7 +39,7 @@ export default function LoginPage() {
   const refreshMe = () => queryClient.invalidateQueries({ queryKey: meQueryKey });
 
   const start = useMutation({
-    mutationFn: () => api("/auth/start", { email }),
+    mutationFn: () => api<AuthStartResponse>("/auth/start", { email }),
     onError: () => (setCodeSent(false), setCode("")),
   });
   const verify = useMutation({
@@ -64,7 +65,13 @@ export default function LoginPage() {
           </CardTitle>
           <CardDescription>
             {step === "email" && "Enter your email and we'll send you a code. Joining a team? Use the email they added you with."}
-            {step === "code" && `We sent a 6-digit code to ${email}.`}
+            {step === "code" && !start.data?.notEmailed && `We sent a 6-digit code to ${email}.`}
+            {step === "code" && start.data?.notEmailed && (
+              <>
+                Email isn't set up on this server, so the code is in its log. On the server, run{" "}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">docker compose logs app | grep "sign-in code"</code>
+              </>
+            )}
             {step === "name" && "What should we call you?"}
           </CardDescription>
         </CardHeader>

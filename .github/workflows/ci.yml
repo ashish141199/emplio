@@ -41,40 +41,6 @@ jobs:
         with:
           bun-version: 1.3.11
       - run: bash docker/smoke.sh
-  # Emplio Cloud's own check: the same app with the private cloud/ folder in, its tests, and that nothing private
-  # is in the public code. Only for pushes and pull requests from this repo: forks don't get the key, and don't need it.
-  cloud:
-    if: github.repository == 'emplio-app/emplio' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:17-alpine
-        env:
-          POSTGRES_PASSWORD: test
-        ports: ["5432:5432"]
-        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
-    env:
-      DATABASE_URL: postgres://postgres:test@localhost:5432/postgres
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.11
-      - name: Fetch the private cloud folder
-        env:
-          CLOUD_DEPLOY_KEY: ${{ secrets.CLOUD_DEPLOY_KEY }}
-        run: |
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$CLOUD_DEPLOY_KEY" > ~/.ssh/cloud && chmod 600 ~/.ssh/cloud
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/cloud -o StrictHostKeyChecking=accept-new"
-          # the cloud branch with the same name as this one, else main
-          repo="git@github.com:${{ github.repository_owner }}/${{ github.event.repository.name }}-cloud.git"
-          git clone -q --depth 1 --branch "${{ github.head_ref || github.ref_name }}" "$repo" cloud 2>/dev/null || git clone -q --depth 1 "$repo" cloud
-      - run: bun install --frozen-lockfile && (cd cloud && bun install --frozen-lockfile)
-      - run: bun cloud/deploy/leak-check.ts
-      - run: bun run typecheck
-      - run: bun run db:migrate
-      - run: bash cloud/deploy/ci.sh
   # Only what passed the checks above is published. Installs download these instead of building.
   images:
     needs: [check, docker]

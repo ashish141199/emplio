@@ -35,6 +35,9 @@
   <img src="docs/images/demo.gif" alt="Emplio answering wholesale enquiries, making a quote, and learning a new credit rule">
 </p>
 
+> [!NOTE]
+> **We've used Emplio every day at Kulp Labs, our software agency, since May 2026. Opening it up to everyone is new.** It has worked really well for us, but your business will use it in ways ours hasn't, so you may run into rough edges. If something breaks, please [open an issue](https://github.com/emplio-app/emplio/issues). We'd love to hear what you think on [Discord](https://discord.gg/vjAr5ARex).
+
 ## The vision
 
 Most AI agents are built for one person. Emplio is built for the whole company.

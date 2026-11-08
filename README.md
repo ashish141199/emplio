@@ -117,6 +117,21 @@ Run the same command again to update. Your settings and data stay.
 The full guide, from setup to every setting, is at [docs.emplio.app](https://docs.emplio.app).
 
 <details>
+<summary><b>Check the script before running it</b></summary>
+
+`emplio.app/install.sh` sends you to [install.sh](install.sh) in this repo. To read it first and make sure what you downloaded is exactly that file:
+
+```bash
+curl -fsSLo install.sh https://emplio.app/install.sh
+curl -fsSL https://raw.githubusercontent.com/emplio-app/emplio/main/install.sh.sha256 | shasum -a 256 -c
+bash install.sh
+```
+
+The second line prints `install.sh: OK` when the file matches. If it doesn't, don't run it, and please [tell us](https://github.com/emplio-app/emplio/issues).
+
+</details>
+
+<details>
 <summary><b>Adding your team</b></summary>
 
 Add people from the Team page. With no email service set up, their sign-in codes are written to the log:
@@ -171,6 +186,26 @@ Emplio runs commands and opens websites for you, so treat it like a member of st
 - Each person's computer and browsers run in their own containers and network.
 - Only the small `runner` service controls Docker, and only for Emplio's own two images. Don't give that access to anything else.
 - Never put this on the internet without HTTPS.
+
+## Where your data goes
+
+Emplio does its thinking with an AI model through [OpenRouter](https://openrouter.ai), so the model company you choose sees what it works on:
+
+- what people send it in chat, files included
+- the company notes it opens for a job (staff never get the restricted ones)
+- what its commands print, the text of pages it reads, and what it pulls from connected apps
+- new messages in a quiet chat, which a smaller model reads so the background agent knows what's going on
+
+The model never gets:
+
+- saved passwords and keys, or the keys and sign-ins for connected apps. They're stored encrypted on your server, and the server uses them itself, so the model only knows their names and sees the results. Once a password is typed into a website, though, the agent could read it back from that browser.
+- browser cookies, your database or your encryption key
+
+Other services only get data if you add their key: Exa (web searches), Composio (app connections), Sarvam (voice notes), Resend (sign-in emails) and Telegram (messages sent there).
+
+You pick the model in Settings. To stop model companies keeping what they're sent, turn on zero data retention in your [OpenRouter privacy settings](https://openrouter.ai/settings/privacy).
+
+OpenRouter is the only option today. We're working on more providers, and on running local models so nothing has to leave your server.
 
 ## Community
 
